@@ -27,6 +27,19 @@
         &#8226; {{ article.stats['read_mins'] }} min read
       {% endif %}
     </p>
+    {% if article.series %}
+      <p>
+        This post is part {{ article.series.index }} of the "{{ article.series.name }}" series:
+      </p>
+      <ol class="parts">
+          {% for part_article in article.series.all %}
+            <li {% if part_article == article %}class="active"{% endif %}>
+                <a href='{{ SITEURL }}/{{ part_article.url }}'>{{ part_article.title }}</a>
+            </li>
+          {% endfor %}
+      </ol>
+    {% endif %}
+
   </header>
 
   {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.article_top %}
